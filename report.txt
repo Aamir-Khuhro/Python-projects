@@ -1,0 +1,31 @@
+
+I coded a simple application that automates local restaurant's data analysis. It helps restaurant understand their customers' preferences better, optimise their menus, and improve customer satisfaction. 
+
+The task was broken into pieces so that the code is well structured and readable. 
+
+1. Populating data in csv file
+In order to perform the follwoing tasks:
+1. Display the data in a table (or table-like) format.
+2. Calculate the average rating for each menu item.
+3. Calculate the total sales for each day of the week.
+4. Determine the most popular menu item based on customer ratings.
+It was needed to add more fields and rows to the given data. For calculating average rating and the most popular menu item, we first needed to have ratings for an item. Therefore, a field 'ratings' was added. It consists a list of ratings. For the task 3, add number of items sold on each day of the week for every item. Finally, we store all that sample data in a csv file named 'menu.csv'. 
+
+
+2. Displaying Menu data
+Function 'display_menu_data()' displays data stored in csv file in table format. We read the file 'menu.csv' in read mode and create files reader object. try - except is used to handle error if file is not found. Application gives user message that file was not found. For displaying data in table format, I used module 'prettytable'. This module helps to present data effectively in table format. In order to use it, I first installed this package using 'pip' python package manager. We first create 'Prettytable()' object and then add field names and rows using 'field_names' and 'add_row' attributes. 
+
+3. Average rating of menu items
+The funcion 'calculate_average_ratings()' calculates average rating for each menu item. As each row consits ratings for it's corresponsing menu item, we will process each row using loop from reader object. We use 'next(reader)' to read fields' row and move to data rows. Item is stored in 0th index of row. So, we set item = row[0]. In order to calculate average rating, we first need to access list of ratings. Ratings for each item are stored at last, so it is accessed using row[-1]. But here occures a problem. row[-1] is string and cannot be performed any numerical operation. To resolve this issue, we import built-in json library.'json.loads' safely converts the string representation of the list to a list. After this we calculate average rating of each item and add item and rating to table as row. Finally, data is presented in table format.
+
+4. Sales on each day
+The function 'calculate_sales_of_each_day()' calculates total sales of all items for each day of the week. We open file and read data. This we don't process data as rows, but we convert 'reader' object to 2D list representation so that we can process data column in fashion, not just row. The days are from 4th to 10th field so we use 'range(3, 10) and we assosiate day to each field using zip method. Then iterate each field (having items sold) and day. We use here nested loop. The outer loop represents field and inner loop traverse through all values in that field. 'day_sales' variable stores the sales on particualr day. 'day' and 'day_sales' are added as row to table. Finally, sales on each day are represented as table.
+
+5. Most popular item
+The funciton 'determine_most_popular_item()' determines the most popular menu item based on it's rating. We first calculate the average rating of each item on menu, as we did earlier. We store average ratings in a list. The sequence of indexes in this list is same as of items in data[][0]. Using 'max' method we get highest value and then we find the index it is present on using 'avg_ratings.index()'. That index represents the item with highest rating and thus the most popular one. 
+
+
+Finally, the funcions are called in the main. We can call one or more funcions based on what insights and anlytics we want to see from our menu data.
+
+
+
